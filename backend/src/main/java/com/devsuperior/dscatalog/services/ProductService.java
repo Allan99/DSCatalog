@@ -5,6 +5,8 @@ import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
+import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,13 +27,32 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id){
-        Product product = repository.getReferenceById(id);
+        Product product = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Resource not found."));
         return new ProductDTO(product);
     }
 
     @Transactional
     public ProductDTO insert(ProductDTO dto){
         Product product = new Product();
+
+        product = repository.save(product);
+        return new ProductDTO(product);
+    }
+
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO dto){
+        try{
+            Product product = repository.getReferenceById(id);
+            copyDtoToEntity(dto, product);
+            product = repository.save(product);
+            return new ProductDTO(product);
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException("Resource not found.");
+        }
+    }
+
+    private void copyDtoToEntity(ProductDTO dto, Product product){
         product.setName(dto.getName());
         product.setImgUrl(dto.getImgUrl());
         product.setPrice(dto.getPrice());
@@ -41,7 +62,5 @@ public class ProductService {
             Category cat = new Category(catDTO.getId(), catDTO.getName());
             product.getCategories().add(cat);
         }
-        product = repository.save(product);
-        return new ProductDTO(product);
     }
 }
