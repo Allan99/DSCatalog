@@ -25,7 +25,7 @@ public class Product {
     private Double price;
     private String imgUrl;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(
             name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),

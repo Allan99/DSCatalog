@@ -5,3 +5,5 @@ INSERT INTO tb_category (name) VALUES ('Eletrônicos');
 INSERT INTO tb_category (name) VALUES ('Livros');
 INSERT INTO tb_category (name) VALUES ('Roupas e Acessórios');
 
+INSERT INTO tb_product_category (product_id, category_id) VALUES (1, 1);
+INSERT INTO tb_product_category (product_id, category_id) VALUES (2, 1);
