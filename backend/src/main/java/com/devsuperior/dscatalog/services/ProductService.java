@@ -20,4 +20,10 @@ public class ProductService {
         Page<ProductDTO> products = repository.searchAllWithCategory(pageable);
         return products;
     }
+
+    @Transactional(readOnly = true)
+    public ProductDTO findById(Long id){
+        Product product = repository.getReferenceById(id);
+        return new ProductDTO(product);
+    }
 }
