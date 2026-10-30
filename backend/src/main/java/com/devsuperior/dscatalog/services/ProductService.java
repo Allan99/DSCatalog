@@ -5,9 +5,11 @@ import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
+import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,18 @@ public class ProductService {
             return new ProductDTO(product);
         }catch(EntityNotFoundException e){
             throw new ResourceNotFoundException("Resource not found.");
+        }
+    }
+
+    @Transactional
+    public void delete(Long id){
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException("Resource not found. Id = " + id);
+        }
+        try{
+            repository.deleteById(id);
+        }catch(DataIntegrityViolationException e){
+            throw new DatabaseException("Integrity violation.");
         }
     }
 
