@@ -1,10 +1,10 @@
-package com.devsuperior.dscatalog.dto;
+package com.devsuperior.dscatalog.controllers.handlers;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationError extends CustomError{
+public class ValidationError extends CustomError {
 
 	private List<FieldMessage> errors = new ArrayList<FieldMessage>();
 	
