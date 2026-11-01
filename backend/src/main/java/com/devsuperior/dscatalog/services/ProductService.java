@@ -70,7 +70,6 @@ public class ProductService {
         product.setName(dto.getName());
         product.setImgUrl(dto.getImgUrl());
         product.setPrice(dto.getPrice());
-        product.setDate(dto.getDate());
         product.setDescription(dto.getDescription());
         for(CategoryDTO catDTO: dto.getCategories()){
             Category cat = new Category(catDTO.getId(), catDTO.getName());

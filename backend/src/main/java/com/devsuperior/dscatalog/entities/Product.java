@@ -19,10 +19,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String name;
-    private Instant date;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
+    private Instant date;
     private String imgUrl;
 
     @ManyToMany
