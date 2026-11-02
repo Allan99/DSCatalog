@@ -7,24 +7,22 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "tb_category")
+@Getter
+@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Long id;
     @Column(unique = true)
-    @Getter
-    @Setter
     private String name;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Instant created_At;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    @Getter
+    @Setter(AccessLevel.NONE)
     private Instant updated_At;
 
     public Category(Long id, String name){

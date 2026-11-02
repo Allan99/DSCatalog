@@ -1,10 +1,13 @@
 package com.devsuperior.dscatalog.dto;
 
+import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,7 +24,7 @@ public class ProductDTO {
     private Instant date;
     private String imgUrl;
 
-    private Set<CategoryDTO> categories = new HashSet<>();
+    private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Long id, String name,
                       String description, Double price, String imgUrl) {
@@ -33,6 +36,14 @@ public class ProductDTO {
 
     }
 
+    public ProductDTO(Product product, Set<Category> categories){
+        this(product);
+        this.categories = categories
+                .stream()
+                .map(c -> new CategoryDTO(c))
+                .toList();
+    }
+
     public ProductDTO(Product product){
         id = product.getId();
         name = product.getName();
@@ -40,9 +51,5 @@ public class ProductDTO {
         price = product.getPrice();
         imgUrl = product.getImgUrl();
         date = product.getDate();
-        categories = product.getCategories()
-                .stream()
-                .map(c -> new CategoryDTO(c))
-                .collect(Collectors.toSet());
     }
 }

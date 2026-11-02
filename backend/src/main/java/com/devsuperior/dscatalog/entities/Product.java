@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_product")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
@@ -24,6 +23,7 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
     private String imgUrl;
 
@@ -33,6 +33,16 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @Setter(AccessLevel.NONE)
     private Set<Category> categories = new HashSet<>();
 
+    public Product(Long id, String name, String description, Double price,
+                   Instant date, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.date = date;
+        this.imgUrl = imgUrl;
+    }
 }

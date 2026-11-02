@@ -13,5 +13,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT DISTINCT obj FROM Product obj JOIN FETCH obj.categories",
             countQuery = "SELECT COUNT(DISTINCT obj) FROM Product obj JOIN obj.categories")
-    Page<ProductDTO> searchAllWithCategory(Pageable pageable);
+    Page<Product> searchAllWithCategory(Pageable pageable);
 }
