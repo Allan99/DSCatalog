@@ -10,8 +10,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    @Query(value = "SELECT DISTINCT obj FROM Product obj JOIN FETCH obj.categories",
-            countQuery = "SELECT COUNT(DISTINCT obj) FROM Product obj JOIN obj.categories")
-    Page<Product> searchAllWithCategory(Pageable pageable);
 }
