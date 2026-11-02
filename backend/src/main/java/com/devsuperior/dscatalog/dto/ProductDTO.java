@@ -2,6 +2,7 @@ package com.devsuperior.dscatalog.dto;
 
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.Instant;
@@ -18,12 +19,20 @@ import java.util.stream.Collectors;
 public class ProductDTO {
 
     private Long id;
+    @NotBlank(message = "Field required.")
     private String name;
+    @NotBlank(message = "Field required.")
+    @Size(min = 10, message = "Field has to contain at least 10 characters.")
     private String description;
+    @NotNull(message = "Field required.")
+    @Positive(message = "Price must be a positive number.")
     private Double price;
+    @NotNull(message = "Field required.")
+    @PastOrPresent(message = "Invalid date.")
     private Instant date;
     private String imgUrl;
 
+    @NotEmpty(message = "There has to exist at least one category.")
     private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Long id, String name,
