@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.controllers;
 
+import com.devsuperior.dscatalog.dto.ProductCatalogCardDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.services.ProductService;
 import jakarta.validation.Valid;
@@ -23,8 +24,8 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable){
-        Page<ProductDTO> productDTOPage = service.findAll(pageable);
+    public ResponseEntity<Page<ProductCatalogCardDTO>> findAll(Pageable pageable){
+        Page<ProductCatalogCardDTO> productDTOPage = service.findAll(pageable);
         return ResponseEntity.ok().body(productDTOPage);
     }
 
