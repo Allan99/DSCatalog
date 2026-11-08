@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("select new com.devsuperior.dscatalog.dto.ProductCatalogCardDTO(obj.imgUrl, obj.name, obj.price) from Product obj")
+    @Query("select new com.devsuperior.dscatalog.dto.ProductCatalogCardDTO(" +
+            "obj.id, obj.imgUrl, obj.name, obj.price) " +
+            "from Product obj")
     Page<ProductCatalogCardDTO> searchAllImgNamePrice(Pageable pageable);
+
 }
