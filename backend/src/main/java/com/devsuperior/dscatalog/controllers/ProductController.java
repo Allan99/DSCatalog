@@ -2,6 +2,7 @@ package com.devsuperior.dscatalog.controllers;
 
 import com.devsuperior.dscatalog.dto.ProductCatalogCardDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,15 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ProductCatalogCardDTO>> findAll(Pageable pageable){
         Page<ProductCatalogCardDTO> productDTOPage = service.findAll(pageable);
+        return ResponseEntity.ok().body(productDTOPage);
+    }
+
+    @GetMapping(value = "/by-category/{categoryName}")
+    public ResponseEntity<Page<ProductCatalogCardDTO>> findAllProductsByCategory(
+            @PathVariable String categoryName, Pageable pageable){
+        Page<ProductCatalogCardDTO> productDTOPage = service.findAllProductsByCategory(
+                categoryName,
+                pageable);
         return ResponseEntity.ok().body(productDTOPage);
     }
 

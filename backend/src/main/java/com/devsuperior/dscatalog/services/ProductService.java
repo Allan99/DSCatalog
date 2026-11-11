@@ -29,6 +29,15 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public Page<ProductCatalogCardDTO> findAllProductsByCategory(String categoryName,
+                                                                 Pageable pageable){
+        Page<ProductCatalogCardDTO> products = repository.searchAllProductsByCategory(
+                categoryName,
+                pageable);
+        return products;
+    }
+
+    @Transactional(readOnly = true)
     public ProductDTO findById(Long id){
         Product product = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Resource not found."));
