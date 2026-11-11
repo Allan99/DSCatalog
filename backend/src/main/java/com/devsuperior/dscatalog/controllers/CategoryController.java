@@ -28,6 +28,12 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryDTOList);
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
+        CategoryDTO categoryDTO = service.findById(id);
+        return ResponseEntity.ok().body(categoryDTO);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDTO> insert(@RequestBody @Valid CategoryDTO dto){
