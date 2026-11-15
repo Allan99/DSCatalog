@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.dto;
 
+import com.devsuperior.dscatalog.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,11 @@ public class ProductCatalogCardDTO {
     private String imgUrl;
     private String name;
     private Double price;
+
+    public ProductCatalogCardDTO(Product product){
+        id = product.getId();
+        imgUrl = product.getImgUrl();
+        name = product.getName();
+        price = product.getPrice();
+    }
 }

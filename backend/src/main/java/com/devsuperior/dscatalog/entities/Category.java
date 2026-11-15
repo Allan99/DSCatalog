@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -24,6 +26,10 @@ public class Category {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     @Setter(AccessLevel.NONE)
     private Instant updated_At;
+
+    @ManyToMany(mappedBy = "categories")
+    @Setter(AccessLevel.NONE)
+    private Set<Product> products = new HashSet<>();
 
     public Category(Long id, String name){
         this.id = id;

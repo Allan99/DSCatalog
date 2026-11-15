@@ -30,15 +30,6 @@ public class ProductController {
         return ResponseEntity.ok().body(productDTOPage);
     }
 
-    @GetMapping(value = "/by-category/{categoryName}")
-    public ResponseEntity<Page<ProductCatalogCardDTO>> findAllProductsByCategory(
-            @PathVariable String categoryName, Pageable pageable){
-        Page<ProductCatalogCardDTO> productDTOPage = service.findAllProductsByCategory(
-                categoryName,
-                pageable);
-        return ResponseEntity.ok().body(productDTOPage);
-    }
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
         ProductDTO productDTO = service.findById(id);
