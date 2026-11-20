@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.tests;
 
+import com.devsuperior.dscatalog.dto.ProductCatalogCardDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
@@ -29,5 +30,10 @@ public class Factory {
     public static ProductDTO createProductDTO(){
         Product product = createProduct();
         return new ProductDTO(product, product.getCategories());
+    }
+
+    public static ProductCatalogCardDTO createProductCatalogCardDTO(){
+        Product product = createProduct();
+        return new ProductCatalogCardDTO(product);
     }
 }
